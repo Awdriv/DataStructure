@@ -24,7 +24,7 @@ void convert(char infix[], char opt[], int *top) {
         } else if (ch == ')') {
             tmp[pTmp++] = ')';
         } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
-            if (tmp[pTmp - 1] != '(') {
+            if (pTmp && tmp[pTmp - 1] != '(') {
                 while (pTmp && getPriority(ch) < getPriority(tmp[pTmp - 1])) {
                     opt[(*top)++] = tmp[--pTmp];
                 }
