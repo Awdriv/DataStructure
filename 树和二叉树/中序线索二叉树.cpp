@@ -21,12 +21,14 @@ tbt_node* get_pre_def_tree() {
     return g_n('A', g_n('B', g_n('C', NULL, NULL), g_n('D', g_n('E', NULL, NULL), g_n('F', NULL, NULL))), g_n('G', g_n('H', NULL, NULL), NULL));
 }
 
+// 和中序的构造仅仅是顺序不同
 // 全局变量代替递归二级指针
 // 调用函数前需要手动归零！
 tbt_node* pre;
 void build_in_tree(tbt_node *p) {
     if (!p) return;
     build_in_tree(p->l_c);
+    build_in_tree(p->r_c);
     if (!p->l_c) {
         p->l_c = pre;
         p->l_tag = 1;
@@ -36,7 +38,6 @@ void build_in_tree(tbt_node *p) {
         pre->r_tag = 1;
     }
     pre = p;
-    build_in_tree(p->r_c);
 }
 
 tbt_node* find_first(tbt_node *p) {
