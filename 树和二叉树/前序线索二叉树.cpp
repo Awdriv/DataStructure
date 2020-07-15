@@ -35,7 +35,7 @@ void build_in_tree(tbt_node *p) {
         pre->r_tag = 1;
     }
     pre = p;
-    // 非线索指针才进入迭代
+    // 非线索指针才进入递归
     // 否则会进入无限套娃模式
     if (!p->l_tag) build_in_tree(p->l_c);
     if (!p->r_tag) build_in_tree(p->r_c);
@@ -52,11 +52,23 @@ void enum_pre(tbt_node *p) {
     }
 }
 
+tbt_node* find_next(tbt_node* p) {
+    if (!p->l_tag && p->l_c) {
+        return p->l_c;
+    } else if (p->r_c) {
+        return p->r_c;
+    }
+    return NULL;
+}
 
 int main() {
-    tbt_node *root = get_pre_def_tree();
+    tbt_node *root = get_pre_def_tree(), *p = root;
     pre = NULL;
     build_in_tree(root);
-    enum_pre(root);
+    // enum_pre(root);
+    while (p) {
+        _sout(p->v);
+        p = find_next(p);
+    }
     return 0;
 }
