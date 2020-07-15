@@ -46,48 +46,35 @@ void r_after(bt_node *p) {
 }
 
 // 非递归算法
-void ir_pre(bt_node *p) {
-    bt_node *stack[1024];
+void pre_dfs_ir(bt_node *p) {
+    bt_node *stack[MAXSIZE];
     int p_stack = 0;
-    if (p) {
-        stack[p_stack++] = p;
-    }
+    if (p) stack[p_stack++] = p;
     while (p_stack) {
         bt_node *top = stack[--p_stack];
         _sout(top->v);
-        if (top->r_c) {
-            stack[p_stack++] = top->r_c;
-        }
-        if (top->l_c) {
-            stack[p_stack++] = top->l_c;
-        }
+        if (top->r_c) stack[p_stack++] = top->r_c;
+        if (top->l_c) stack[p_stack++] = top->l_c;
     }
 }
 
-void ir_right(bt_node *p) {
-    bt_node *sa[1024], *sb[1024], *root = p;
-    int p_sa = 0;
-    int p_sb = 0;
-    if (p) {
-        sa[p_sa++] = p;
-    }
+void post_dfs_ir(bt_node *p) {
+    bt_node *sa[MAXSIZE], *sb[MAXSIZE];
+    int p_sa = 0, p_sb = 0;
+    if (p) sa[p_sa++] = p; 
     while (p_sa) {
         bt_node *top = sa[--p_sa];
         sb[p_sb++] = top;
-        if (top->l_c) {
-            sa[p_sa++] = top->l_c;
-        }
-        if (top->r_c) {
-            sa[p_sa++] = top->r_c;
-        }
+        if (top->l_c) sa[p_sa++] = top->l_c;
+        if (top->r_c) sa[p_sa++] = top->r_c;
     }
     while (p_sb) {
         _sout(sb[--p_sb]->v);
     }
 }
 
-void ir_center(bt_node *p) {
-    bt_node *stack[1024];
+void in_dfs_ir(bt_node *p) {
+    bt_node *stack[MAXSIZE];
     int p_stack = 0;
     while (p_stack || p) {
         while (p) {
@@ -104,25 +91,20 @@ void ir_center(bt_node *p) {
 
 // BFS
 void bfs(bt_node *p) {
-    bt_node *queue[1024];
+    bt_node *queue[MAXSIZE];
     int front = 0, rear = 0;
-    if (!p) {
-        return;
-    }
-    queue[++rear] = p;
+    if (p) queue[++rear] = p;
     while (front != rear) {
-        bt_node *cur = queue[front = (front + 1) % 1024];
+        bt_node *cur = queue[++front % MAXSIZE];
         _sout(cur->v);
-        if (cur->l_c) {
-            queue[rear = (rear + 1) % 1024] = cur->l_c;
-        }
-        if (cur->r_c) {
-            queue[rear = (rear + 1) % 1024] = cur->r_c;
-        }
+        if (cur->l_c) queue[++rear % MAXSIZE] = cur->l_c;
+        if (cur->r_c) queue[++rear % MAXSIZE] = cur->r_c;
     }
 }
+
+
 int main() {
     bt_node *my_bt = get_pre_def_tree();
-    bfs(my_bt);
+    pre_dfs_ir(my_bt);
     return 0;
 }
