@@ -24,23 +24,23 @@ void r_center(BTNode *p) {
 }
 
 // 初始位置 [0, 长度 - 1]
-BTNode* buildTree(char *pre, char *in, int L1, int R1, int L2, int R2) {
-    if (L1 > R1) {                                     // 前序串处理完毕
+BTNode* buildTree(char *post, char *in, int L1, int R1, int L2, int R2) {
+    if (L1 > R1) {                                      // 后序串处理完毕
         return NULL;
     }
-    char rootValue = pre[L1];                            // 根节点在最前
-    int i = strchr(in, rootValue) - in;                // 中序根节点位置
+    char rootValue = post[R1];                            // 根节点在最后
+    int i = strchr(in, rootValue) - in;                 // 中序根节点位置
     return createNode(
         rootValue,
-        buildTree(pre, in, L1 + 1, L1 - L2 + i, L2, i - 1),    // 左子树
-        buildTree(pre, in, R1 - R2 + i + 1, R1, i + 1, R2)     // 右子树
+        buildTree(post, in, L1, L1 - L2 + i - 1, L2, i - 1),    // 左子树
+        buildTree(post, in, R1 - R2 + i, R1 - 1, i + 1, R2)     // 右子树
     );
 }
 
 int main() {
-    char pre[] = "ABCDEFGH";
+    char post[] = "CEFDBHGA";
     char in[] = "CBEDFAHG";
-    BTNode* my_tree = buildTree(pre, in, 0, strlen(pre) - 1, 0, strlen(in) - 1);
+    BTNode* my_tree = buildTree(post, in, 0, strlen(post) - 1, 0, strlen(in) - 1);
     r_center(my_tree);
     return 0;
 }
