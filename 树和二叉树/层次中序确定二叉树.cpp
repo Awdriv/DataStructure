@@ -33,9 +33,8 @@ int searchEx(char *src, char ch, int begin, int end) {
 }
 
 // 初始位置 [0, 长度 - 1]
-BTNode* buildTree(char *level, char *in, int lIn, int rIn) {
-    int levelLength = strlen(level);
-    if (!levelLength) {
+BTNode* buildTree(char *level, char *in, int levelLength, int lIn, int rIn) {
+    if (!levelLength) {                                  // 层次串处理完毕
         return NULL;
     }
     char rootValue = level[0];
@@ -52,18 +51,17 @@ BTNode* buildTree(char *level, char *in, int lIn, int rIn) {
             rightLevel[rightLevelLength++] = level[i]; // 属于右子树的节点
         } 
     }
-    leftLevel[leftLevelLength] = 0; rightLevel[rightLevelLength] = 0; 
     return createNode(
         rootValue,
-        buildTree(leftLevel, in, lIn, pos - 1),
-        buildTree(rightLevel, in, pos + 1, rIn)
+        buildTree(leftLevel, in, leftLevelLength, lIn, pos - 1),
+        buildTree(rightLevel, in, rightLevelLength, pos + 1, rIn)
     );
 }
 
 int main() {
     char level[] = "ABGCDHEF";
     char in[] = "CBEDFAHG";
-    BTNode* my_tree = buildTree(level, in, 0, strlen(in) - 1);
+    BTNode* my_tree = buildTree(level, in, strlen(level), 0, strlen(in) - 1);
     r_center(my_tree);
     return 0;
 }
