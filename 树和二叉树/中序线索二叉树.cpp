@@ -21,7 +21,7 @@ tbt_node* get_pre_def_tree() {
     return g_n('A', g_n('B', g_n('C', NULL, NULL), g_n('D', g_n('E', NULL, NULL), g_n('F', NULL, NULL))), g_n('G', g_n('H', NULL, NULL), NULL));
 }
 
-// 全局变量代替递归二级指针
+// 用全局变量代替递归二级指针
 // 调用函数前需要手动归零！
 tbt_node* pre;
 void build_in_tree(tbt_node *p) {
