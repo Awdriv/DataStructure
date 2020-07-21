@@ -1,4 +1,4 @@
-#include <awdriv.h>
+#include <awdriv>
 
 void swap(int *a, int *b) {
     int tmp = *a;

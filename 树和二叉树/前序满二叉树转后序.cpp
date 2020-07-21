@@ -1,4 +1,4 @@
-#include <awdriv.h>
+#include <awdriv>
 
 void change(char *pre, char *post, int L1, int R1, int L2, int R2) {
     if (L1 > R1) return;

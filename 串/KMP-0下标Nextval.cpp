@@ -1,4 +1,4 @@
-#include <awdriv.h>
+#include <awdriv>
 
 void get_next_val_table(char *str, int length, int next_val[]) {
     int i = 0, j = -1;

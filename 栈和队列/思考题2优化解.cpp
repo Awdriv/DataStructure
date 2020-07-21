@@ -1,4 +1,4 @@
-#include <awdriv.h>
+#include <awdriv>
 
 // 1..N 个字符轮流与第 N 个字符交换
 // 1..N-1 个字符轮流与第 N - 1 个字符交换

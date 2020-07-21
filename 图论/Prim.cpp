@@ -1,4 +1,4 @@
-#include <awdriv.h>
+#include <awdriv>
 
 int mGraph[32][32] = {
     {INF, 5, 1, 2, INF},
