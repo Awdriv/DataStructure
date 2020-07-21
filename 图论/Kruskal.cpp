@@ -39,18 +39,18 @@ int gRoot(int set[], int n) {
 }
 
 void kruskal(Road *road[], int roadCount, int *sum) {
-    int set[32];
+    int querySet[32];               // 并查集用的数组
     (*sum) = 0;
     for (int i = 0; i < roadCount; i++) {
-        set[i] = i;
+        querySet[i] = i;              // 初始化并查集
     }
     std::sort(road, road + roadCount, cmp);
     for (int i = 0; i < roadCount; i++) {
-        int froot = gRoot(set, road[i]->from);
-        int troot = gRoot(set, road[i]->to);
+        int froot = gRoot(querySet, road[i]->from);
+        int troot = gRoot(querySet, road[i]->to);
         if (froot != troot) {
             // 并查集拼接的是 ROOT！
-            set[froot] = troot;
+            querySet[froot] = troot;
             (*sum) += road[i]->cost;
         }
     }

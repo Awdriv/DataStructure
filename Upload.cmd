@@ -1,6 +1,6 @@
 @echo off
 
-title 上传至 Github
+title 锟较达拷锟斤拷 Github
 
 git add *
 git commit -m "%DATE% %TIME%"

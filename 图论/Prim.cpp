@@ -9,26 +9,26 @@ int mGraph[32][32] = {
 };
 
 void prim(int mGraph[32][32], int n, int start, int *sum) {
-    int cost[32];
-    int vSet[32];
+    int cost[32];               // 当前生成树到其他点的代价
+    int set[32];                                // 标记数组
     for (int i = 0; i < n; i++) {
         cost[i] = mGraph[start][i];       // 到其他点的代价
-        vSet[i] = 0;                        // 清空标记数组
+        set[i] = 0;                         // 清空标记数组
     }
-    vSet[start] = 1; *sum = 0;                  // 开始顶点
+    set[start] = 1; *sum = 0;                   // 开始顶点
     for (int rev = 0; rev < n - 1; rev++) {
         int min = INF;
         int minId = -1;
          // 寻找最小代价的没去过的顶点
         for (int i = 0; i < n; i++) {
-            if (!vSet[i] && cost[i] < min) {
+            if (!set[i] && cost[i] < min) {
                 min = cost[i]; minId = i;
             }
         }
         // 将该点并入生成树，并累计代价
-        start = minId; vSet[start] = 1; (*sum) += min;
+        start = minId; set[start] = 1; (*sum) += min;
         for (int i = 0; i < n; i++) {
-            if (!vSet[i] && mGraph[start][i] < cost[i]) {
+            if (!set[i] && mGraph[start][i] < cost[i]) {
                 // 针对新加入的点更新生成树到其他点的代价
                 cost[i] = mGraph[start][i];
             }
