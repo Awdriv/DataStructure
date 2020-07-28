@@ -24,7 +24,7 @@ tbt_node* get_pre_def_tree() {
 // 全局变量代替递归二级指针
 // 调用函数前需要手动归零！
 tbt_node* pre;
-void build_in_tree(tbt_node *p) {
+void build_pre_tree(tbt_node *p) {
     if (!p) return;
     if (!p->l_c) {
         p->l_c = pre;
@@ -37,8 +37,8 @@ void build_in_tree(tbt_node *p) {
     pre = p;
     // 非线索指针才进入递归
     // 否则会进入无限套娃模式
-    if (!p->l_tag) build_in_tree(p->l_c);
-    if (!p->r_tag) build_in_tree(p->r_c);
+    if (!p->l_tag) build_pre_tree(p->l_c);
+    if (!p->r_tag) build_pre_tree(p->r_c);
 }
 
 void enum_pre(tbt_node *p) {
@@ -64,7 +64,7 @@ tbt_node* find_next(tbt_node* p) {
 int main() {
     tbt_node *root = get_pre_def_tree(), *p = root;
     pre = NULL;
-    build_in_tree(root);
+    build_pre_tree(root);
     // enum_pre(root);
     while (p) {
         _sout(p->v);
