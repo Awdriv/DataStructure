@@ -17,11 +17,6 @@ void getNextVal(char *str, int length, int nextVal[]) {
     }
 }
 
-
-
-
-
-
 int kmp(char *str, int length, char *sub, int subLength, int nextVal[]) {
     // I, J 分别为字符串和查找串的第一个字符下标
     int i = 1, j = 1;
