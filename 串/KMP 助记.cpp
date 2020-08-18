@@ -9,7 +9,7 @@ void getNextVal(char *str, int length, int nextVal[]) {
         if (!j || str[i] == str[j]) {
             ++i;
             ++j;
-            // 如果相等，激情套娃
+            // 如果相等，激情套娃；求 Next 就直接赋值 J 即可
             nextVal[i] = (str[i] != str[j]) ? j : nextVal[j];
         } else {
             j = nextVal[j];
@@ -27,7 +27,7 @@ int kmp(char *str, int length, char *sub, int subLength, int nextVal[]) {
             j = nextVal[j];
         }
     }
-    if (j > subLength) { // 查找越界，查找成功
+    if (j > subLength) { // 查找 J 越界则查找成功，I 越界则失败
         return i - subLength;
     } else {
         return 0;
