@@ -1,6 +1,6 @@
 @echo off
 
-title �ϴ��� Github
+title 上传至 Github
 
 git add *
 git commit -m "%DATE% %TIME%"
